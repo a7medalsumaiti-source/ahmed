@@ -11,7 +11,13 @@
 | Grade | Warm/amber (0–10 s) → neutral (10–21 s) → fresh/cool teal-white (21–30 s) |
 | Safe zones | Keep text and logo inside the centre 1080 × 1420 (avoid top 250 px and bottom 250 px, where the platform UI sits) |
 
-> **Brand assets status:** No Alfaytri logo or brand colours were supplied. This package uses **simple text branding** and **placeholder colours** (marked `[BRAND_*]`). Replace them before final delivery. No prices, certifications, guarantees or contact details are invented. The contact line stays as `[Phone / WhatsApp]`.
+> **Brand (from the supplied AlFaytri style sheet, `brand/AlFaytri-StyleSheet.pdf`):**
+> - **Brand orange** `#F7901E` (RGB 247 144 30 · CMYK 0 52 100 0)
+> - **Brand dark grey** `#414042` (RGB 65 64 66 · CMYK 0 0 0 90)
+> - **Typeface:** Changa (included in `brand/fonts/`, SIL Open Font License)
+> - **Logos:** main (stacked), horizontal and icon-only, in full colour and a white-on-dark version, as transparent PNGs in `brand/logo/`
+>
+> www.alfaytri.com couldn't be reached from the production environment, so **no contact details, prices, certifications or guarantees are included**. The contact line stays as the placeholder `[Phone / WhatsApp]` until the real number is supplied.
 
 ---
 
@@ -28,9 +34,9 @@ Keep these descriptions **word-for-word identical** in every prompt so the peopl
 
 **TECHNICIAN A (lead)** — A man in his early 30s with short black hair and a friendly smile.
 **TECHNICIAN B** — A man in his late 20s, slightly taller, clean-shaven.
-**UNIFORM (both)** — Clean polo shirts and work trousers in `[BRAND_PRIMARY]` (placeholder: deep navy), with plain text "ALFAYTRI" printed in white on the chest and back, grey safety shoes and a tool belt. In the maintenance close-ups they also wear disposable nitrile gloves.
+**UNIFORM (both)** — Clean charcoal-grey (#414042) polo shirts with bright orange (#F7901E) shoulder panels and collar trim, charcoal work trousers, grey safety shoes and a tool belt. A small chest patch is left plain in the AI clips; add the real Alfaytri icon there in post (or film real uniforms). In the maintenance close-ups they also wear disposable nitrile gloves.
 
-**VEHICLE** — A clean white compact service van with `[BRAND_PRIMARY]` side stripes and the plain text "ALFAYTRI MAINTENANCE" on the side. **No phone number on the van.**
+**VEHICLE** — A clean white compact service van with a bold orange (#F7901E) and charcoal (#414042) diagonal side livery and a blank white panel on the side door, where the real Alfaytri horizontal logo is tracked on in post (`brand/logo/logo_horizontal.png`). **No phone number on the van.**
 
 ---
 
@@ -90,13 +96,16 @@ Keep these descriptions **word-for-word identical** in every prompt so the peopl
 
 ### Scene 5 — Brand and booking · 0:26–0:30 · *Clean end card*
 
-- Background: a soft gradient of `[BRAND_PRIMARY]` → `[BRAND_SECONDARY]` (placeholder: deep navy → cool teal), with a faint airflow line motif.
-- Logo area: **Alfaytri logo** (if not supplied, use the text "ALFAYTRI" in bold with "Maintenance Company" underneath).
-- Lines (fade in one after another, 0.3 s apart):
+**Rendered and ready:** `exports/end_card.mp4` (4 s, animated) and `exports/end_card.png` (still).
+
+- Background: clean white with a thin orange top band and a dark-grey bottom band (the style sheet's two colours).
+- The main stacked **ALFAYTRI / الفيتري** logo (official artwork) fades and slides up, then an orange divider grows underneath it.
+- Lines in Changa (fade in one after another, 0.3 s apart):
   1. **Alfaytri Maintenance Company**
   2. *"Keep your cool this summer."*
   3. **"Book your AC maintenance today."**
   4. `[Phone / WhatsApp]` ← **placeholder, replace with real details**
+- The contact line sits in an orange pill, so swapping in the real number is a one-line change in `animatic/build_branded.py`.
 - Hold a clean frame for at least 1.5 s at the end so platforms don't cut it off when the video loops.
 
 ---
@@ -119,7 +128,7 @@ The gaps at 0:06–0:10 (van arrival and greeting) and 0:21–0:26 (comfort mome
 **Optional Arabic VO (have a native copywriter check it before use):**
 "صيف قطر حار. والمكيّف المليء بالغبار قد لا يمنحك الراحة. فنيّو الفيتري يفحصون مكيّفك السبليت وينظفونه ويصونونه لاستعادة التبريد. حافظ على برودتك هذا الصيف. احجز مع الفيتري اليوم."
 
-Ready-made caption files: [`voiceover_en.srt`](voiceover_en.srt) (VO captions) and [`onscreen_text.srt`](onscreen_text.srt) (headline overlays).
+Ready-made caption files: [`voiceover_en.srt`](voiceover_en.srt) (VO captions) and [`onscreen_text.srt`](onscreen_text.srt) (headline timings). Styled overlay PNGs are in `exports/overlays/`.
 
 ---
 
@@ -137,6 +146,8 @@ Written for text/image-to-video models (e.g. Veo, Sora, Runway Gen-4, Kling, Pik
 
 **Global style suffix (add to every prompt):**
 > Photorealistic, cinematic, shot on a full-frame cinema camera with a 35 mm lens, natural lighting, shallow depth of field, realistic skin texture and natural human movement, vertical 9:16, 4K, no on-screen text, no logos, no watermarks, no distorted hands.
+
+**Brand colour cue (add to prompts that show the van or uniforms):** brand colours bright orange #F7901E and charcoal grey #414042.
 
 **Global negative prompt:**
 > text, captions, subtitles, logo, watermark, phone number, extra fingers, distorted faces, exaggerated mould, broken AC, sparks, smoke, exposed live wires, water sprayed on electronics, cartoon, CGI look, oversaturated.
@@ -158,7 +169,7 @@ Written for text/image-to-video models (e.g. Veo, Sora, Runway Gen-4, Kling, Pik
 **2C** — *In the living room, {TECHNICIAN A} looks up at {AC UNIT} and shines a small flashlight into the air outlet, inspecting it carefully. {TECHNICIAN B} beside him holds the remote and checks the display. {RESIDENT} watches in the background. Medium close-up.* + style suffix
 
 ### Scene 3 — Professional maintenance (neutral, clean grade)
-**3A** — *Macro close-up: a hand in a blue nitrile glove, wearing a navy uniform sleeve, switches off a labelled AC isolator switch on a white wall and attaches a small red "do not switch on" tag. Crisp, clean lighting.* + style suffix
+**3A** — *Macro close-up: a hand in a blue nitrile glove, with a charcoal-and-orange uniform sleeve, switches off a labelled AC isolator switch on a white wall and attaches a small red "do not switch on" tag. Crisp, clean lighting.* + style suffix
 
 **3B** — *Top-down shot: {TECHNICIAN B} spreads a clean white protective drop sheet over the light-grey sofa, while {TECHNICIAN A} tapes a clear plastic sheet to the cream wall beneath {AC UNIT}. Tidy, methodical movements.* + style suffix
 
@@ -180,8 +191,7 @@ Written for text/image-to-video models (e.g. Veo, Sora, Runway Gen-4, Kling, Pik
 **4C** — *In the spotless living room, {TECHNICIAN A} holds up a clean white AC filter, smiles and gives {RESIDENT} a friendly thumbs-up, while {TECHNICIAN B} folds the drop sheet in the background. Medium two-shot, cool bright grade.* + style suffix
 
 ### Scene 5 — End card
-Build this in the editor (CapCut, Premiere, After Effects, Canva), not with AI. Optional AI background plate:
-**5BG** — *Abstract, soft gradient background from deep navy to cool teal with faint flowing white air-stream lines moving slowly upward, minimal and clean, vertical 9:16, no text.*
+Already built: use `exports/end_card.mp4` as is. Don't generate the logo or end card with AI.
 
 ---
 
@@ -199,12 +209,14 @@ Generate these as still images, pick the best ones, and use them as image refere
 
 ## 7. Edit and finishing checklist
 
-- [ ] Cut to the timing grid in [`animatic/`](animatic/) (a placeholder animatic with exact text timings).
-- [ ] Headline font: bold geometric sans (e.g. Montserrat ExtraBold / Poppins Bold), white with a 20–30 % dark drop shadow. Optional Arabic pairing: Cairo / Tajawal Bold.
+- [ ] Cut to the timing grid in `exports/alfaytri_ac_promo_animatic.mp4` (a branded animatic with the final text styling and timings).
+- [ ] Captions: drop the transparent overlays from `exports/overlays/` on top of the footage at the times listed in section 2 (dark-grey card with an orange accent bar, white Changa SemiBold; "Inspect. Clean. Service. Test." builds as orange and grey chips).
+- [ ] Headline font: **Changa** (brand typeface). For Arabic text, use Changa Arabic (`brand/fonts/Changa-arabic-600.ttf`).
 - [ ] Text animation: 0.25 s fade-up in, 0.2 s fade out. No more than one headline on screen at a time.
 - [ ] Grade: warm LUT (S1–S2) → crossfade to neutral at 0:10 → cool/fresh LUT from 0:21.
 - [ ] Airflow effect in S4: subtle (opacity ≤ 15 %), never cartoonish.
-- [ ] Replace `[BRAND_PRIMARY]`, `[BRAND_SECONDARY]`, the logo and `[Phone / WhatsApp]` with real assets.
+- [ ] Track the real logo onto the van door and uniform chest patches in post (AI-generated logos come out garbled).
+- [ ] Replace `[Phone / WhatsApp]` with the real number (edit `animatic/build_branded.py` and re-run it).
 - [ ] Check that no prices, certifications, guarantees or invented contact details appear anywhere (including on the van and uniforms in the AI clips).
 - [ ] Export: H.264 MP4, 1080 × 1920, 30 fps, ~12–16 Mbps, AAC 48 kHz. Keep it under 16 MB for smooth WhatsApp sharing (re-export at ~4 Mbps if needed).
 - [ ] Burned-in captions recommended (most social viewing is muted).
