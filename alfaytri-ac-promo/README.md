@@ -2,6 +2,8 @@
 
 | Path | Purpose |
 |---|---|
+| **[exports/alfaytri_ac_promo_30s.mp4](exports/alfaytri_ac_promo_30s.mp4)** | **Finished 30 s video**: flat-illustrated 2D animation of the storyboard, with brand captions, end card, music and SFX (no voice-over) |
+| [video/build_video.py](video/build_video.py) | Re-renders the finished video (`python3 video/build_video.py`, about 2 min, needs Pillow, numpy and ffmpeg) |
 | [STORYBOARD.md](STORYBOARD.md) | Continuity bible, shot-by-shot storyboard, timed VO, sound design, AI video-generation prompts, finishing checklist |
 | [exports/end_card.mp4](exports/end_card.mp4) · [end_card.png](exports/end_card.png) | Finished 3 s animated brand card (Scene 5) |
 | [exports/overlays/](exports/overlays/) | Transparent 1080×1920 caption overlays, in brand style |

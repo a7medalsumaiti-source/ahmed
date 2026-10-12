@@ -68,11 +68,11 @@ def centred(img, cy):
 
 
 CAPTIONS = [  # (name, start, end, image, centre-y)
-    ("s1_warm_air", 0.8, 7.0, caption_card(["AC blowing warm air?"]), 1300),
-    ("s2_call", 7.3, 11.0, caption_card(["Call Alfaytri."]), 1300),
-    ("s3_1_inspection", 11.5, 23.0, caption_card(["Professional inspection."], 70), 1230),
-    ("s3_2_maintenance", 16.5, 23.0, caption_card(["Expert maintenance."], 70), 1390),
-    ("s4_comfort", 23.3, 27.0, caption_card(["Back to comfort."]), 1300),
+    ("s1_warm_air", 0.8, 7.0, caption_card(["AC blowing warm air?"]), 1530),
+    ("s2_call", 7.3, 11.0, caption_card(["Call Alfaytri."]), 1530),
+    ("s3_1_inspection", 11.5, 23.0, caption_card(["Professional inspection."], 70), 1450),
+    ("s3_2_maintenance", 16.5, 23.0, caption_card(["Expert maintenance."], 70), 1600),
+    ("s4_comfort", 23.3, 27.0, caption_card(["Back to comfort."]), 1530),
 ]
 CAPTIONS = [(n, a, b, img, centred(img, cy)) for n, a, b, img, cy in CAPTIONS]
 
