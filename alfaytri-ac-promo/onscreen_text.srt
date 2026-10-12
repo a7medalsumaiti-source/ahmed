@@ -1,35 +1,26 @@
 1
-00:00:00,500 --> 00:00:05,000
-Summer heat in Qatar…
-AC not cooling?
+00:00:00,800 --> 00:00:07,000
+AC blowing warm air?
 
 2
-00:00:05,500 --> 00:00:10,000
-Alfaytri is here to help.
+00:00:07,300 --> 00:00:11,000
+Call Alfaytri.
 
 3
-00:00:10,500 --> 00:00:13,000
-Inspect.
+00:00:11,500 --> 00:00:16,500
+Professional inspection.
 
 4
-00:00:13,000 --> 00:00:16,000
-Inspect. Clean.
+00:00:16,500 --> 00:00:23,000
+Professional inspection.
+Expert maintenance.
 
 5
-00:00:16,000 --> 00:00:19,000
-Inspect. Clean. Service.
+00:00:23,300 --> 00:00:27,000
+Back to comfort.
 
 6
-00:00:19,000 --> 00:00:21,000
-Inspect. Clean. Service. Test.
-
-7
-00:00:21,500 --> 00:00:26,000
-Clean AC. Cool home.
-Summer comfort.
-
-8
-00:00:26,000 --> 00:00:30,000
+00:00:27,000 --> 00:00:30,000
 Alfaytri Maintenance Company
 Keep your cool this summer.
 Book your AC maintenance today.

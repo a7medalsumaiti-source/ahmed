@@ -2,7 +2,7 @@
 """Render the branded Alfaytri promo graphics (Changa font, #F7901E / #414042, official logo).
 
 Outputs (in ../exports):
-  end_card.mp4 / end_card.png         4 s animated brand card + still (Scene 5)
+  end_card.mp4 / end_card.png         3 s animated brand card + still (Scene 5)
   overlays/*.png                      transparent 1080x1920 caption overlays to place over the footage
   alfaytri_ac_promo_animatic.mp4      30 s timing animatic with the final text styling
 
@@ -63,36 +63,18 @@ def caption_card(lines, size=78):
     return img
 
 
-def chips(words, size=70):
-    """'Inspect. Clean. Service. Test.' as a 2x2 grid of chips; returns [(img, (x, y))]."""
-    f = font(700, size)
-    out = []
-    cw, ch, gx, gy = 440, 130, 24, 24
-    x0 = (W - (2 * cw + gx)) // 2
-    y0 = 1180
-    for i, w in enumerate(words):
-        img = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
-        d = ImageDraw.Draw(img)
-        fill = ORANGE if i % 2 == 0 else GREY
-        d.rounded_rectangle((0, 0, cw - 1, ch - 1), radius=24, fill=fill + (240,))
-        b = f.getbbox(w)
-        d.text(((cw - (b[2] - b[0])) / 2 - b[0], (ch - (b[3] - b[1])) / 2 - b[1]), w, font=f, fill=WHITE)
-        out.append((img, (x0 + (i % 2) * (cw + gx), y0 + (i // 2) * (ch + gy))))
-    return out
-
-
 def centred(img, cy):
     return ((W - img.width) // 2, int(cy - img.height / 2))
 
 
-CAPTIONS = [  # (start, end, image, position)
-    (0.5, 5.0, caption_card(["Summer heat in Qatar…", "AC not cooling?"]), None),
-    (5.5, 10.0, caption_card(["Alfaytri is here to help."]), None),
-    (21.5, 26.0, caption_card(["Clean AC. Cool home.", "Summer comfort."]), None),
+CAPTIONS = [  # (name, start, end, image, centre-y)
+    ("s1_warm_air", 0.8, 7.0, caption_card(["AC blowing warm air?"]), 1300),
+    ("s2_call", 7.3, 11.0, caption_card(["Call Alfaytri."]), 1300),
+    ("s3_1_inspection", 11.5, 23.0, caption_card(["Professional inspection."], 70), 1230),
+    ("s3_2_maintenance", 16.5, 23.0, caption_card(["Expert maintenance."], 70), 1390),
+    ("s4_comfort", 23.3, 27.0, caption_card(["Back to comfort."]), 1300),
 ]
-CAPTIONS = [(a, b, img, centred(img, 1300)) for a, b, img, _ in CAPTIONS]
-CHIP_TIMES = [10.5, 13.0, 16.0, 19.0]  # the four words build up and stay to 21 s
-CHIPS = chips(["Inspect.", "Clean.", "Service.", "Test."])
+CAPTIONS = [(n, a, b, img, centred(img, cy)) for n, a, b, img, cy in CAPTIONS]
 
 
 def paste(frame, img, pos, alpha, slide=1.0, dy=40):
@@ -105,11 +87,8 @@ def paste(frame, img, pos, alpha, slide=1.0, dy=40):
 
 
 def draw_captions(frame, t):
-    for a, b, img, pos in CAPTIONS:
+    for _, a, b, img, pos in CAPTIONS:
         al, sl = fade(t, a, b)
-        paste(frame, img, pos, al, sl)
-    for (img, pos), t_in in zip(CHIPS, CHIP_TIMES):
-        al, sl = fade(t, t_in, 21.0)
         paste(frame, img, pos, al, sl)
 
 
@@ -137,10 +116,10 @@ def pill(s):
 
 END_ITEMS = [  # (appear at, image, centre-y)
     (0.0, LOGO, 300 + LOGO.height // 2),
-    (0.4, text_img("Alfaytri Maintenance Company", 600, 62, GREY), 1110),
-    (0.7, text_img("“Keep your cool this summer.”", 400, 60, ORANGE), 1205),
-    (1.0, text_img("Book your AC maintenance today.", 700, 58, GREY), 1300),
-    (1.3, pill("[Phone / WhatsApp]"), 1450),
+    (0.25, text_img("Alfaytri Maintenance Company", 600, 62, GREY), 1110),
+    (0.5, text_img("“Keep your cool this summer.”", 400, 60, ORANGE), 1205),
+    (0.75, text_img("Book your AC maintenance today.", 700, 58, GREY), 1300),
+    (1.0, pill("[Phone / WhatsApp]"), 1450),  # placeholder: replace with the real number
 ]
 
 
@@ -152,12 +131,12 @@ def end_card(t):
     d.rectangle((0, 0, W, 22), fill=ORANGE)
     d.rectangle((0, H - 22, W, H), fill=GREY)
     # thin orange divider grows under the logo
-    grow = ease((t - 0.3) / 0.5)
+    grow = ease((t - 0.2) / 0.4)
     if grow > 0:
         half = int(180 * grow)
         d.rounded_rectangle((W // 2 - half, 1040, W // 2 + half, 1048), radius=4, fill=ORANGE)
     for t_in, img, cy in END_ITEMS:
-        al, sl = fade(t, t_in, 99, dur_in=0.45)
+        al, sl = fade(t, t_in, 99, dur_in=0.4)
         paste(frame, img, centred(img, cy), al, sl, dy=30)
     return frame
 
@@ -165,12 +144,13 @@ def end_card(t):
 # ---------- animatic plates ----------
 
 SCENES = [  # start, end, plate colour, label, description lines
-    (0, 5, (200, 116, 46), "SCENE 1 · SUMMER HEAT · 0–5s", ["Midday sun · dusty filters", "resident checks remote"]),
-    (5, 10, (185, 138, 78), "SCENE 2 · ALFAYTRI ARRIVES · 5–10s", ["Van arrives · greeting", "inspection"]),
-    (10, 21, (107, 118, 128), "SCENE 3 · MAINTENANCE · 10–21s",
-     ["Isolate power · protect · wash filters", "coil bag clean · drain · outdoor · test"]),
-    (21, 26, (46, 143, 163), "SCENE 4 · COMFORT RESTORED · 21–26s",
-     ["Clean AC running · subtle airflow", "resident relaxes · final check"]),
+    (0, 7, (200, 116, 46), "SCENE 1 · UNCOMFORTABLE AT HOME · 0–7s",
+     ["Sweating · fanning · presses remote", "warm air from AC · dusty filters"]),
+    (7, 11, (185, 138, 78), "SCENE 2 · CALLING ALFAYTRI · 7–11s", ["Phone call · technician at the door", "resident points to the AC"]),
+    (11, 23, (107, 118, 128), "SCENE 3 · INSPECTION & REPAIR · 11–23s",
+     ["Temp check · isolate power · protect", "filters · coil bag · drain · outdoor gauges · test"]),
+    (23, 27, (46, 143, 163), "SCENE 4 · RELIEF & COMFORT · 23–27s",
+     ["Cool airflow · smile · puts fan down", "thankful nod to technician"]),
 ]
 PLATE_TEXT = {s[3]: [text_img(s[3], 600, 40, WHITE + (220,))] + [text_img(l, 400, 38, WHITE + (180,)) for l in s[4]]
               for s in SCENES}
@@ -178,8 +158,8 @@ PLACEHOLDER = text_img("[ footage placeholder — see STORYBOARD.md ]", 400, 32,
 
 
 def animatic_frame(t):
-    if t >= 26:
-        return end_card(t - 26)
+    if t >= 27:
+        return end_card(t - 27)
     s = next(s for s in SCENES if s[0] <= t < s[1])
     frame = Image.new("RGBA", (W, H), s[2] + (255,))
     y = 300
@@ -209,18 +189,14 @@ def encode(path, n_frames, render, audio=True):
 def main():
     (OUT / "overlays").mkdir(parents=True, exist_ok=True)
     # Transparent full-frame caption overlays for the editor
-    names = ["s1_summer_heat", "s2_here_to_help", "s4_comfort"]
-    for name, (_, _, img, pos) in zip(names, CAPTIONS):
+    for old in (OUT / "overlays").glob("*.png"):
+        old.unlink()
+    for name, _, _, img, pos in CAPTIONS:
         o = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         o.alpha_composite(img, pos)
         o.save(OUT / "overlays" / f"{name}.png")
-    for i, word in enumerate(["inspect", "clean", "service", "test"]):
-        o = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        for img, pos in CHIPS[: i + 1]:
-            o.alpha_composite(img, pos)
-        o.save(OUT / "overlays" / f"s3_{i + 1}_{word}.png")
     end_card(5).convert("RGB").save(OUT / "end_card.png")
-    encode(OUT / "end_card.mp4", 4 * FPS, end_card)
+    encode(OUT / "end_card.mp4", 3 * FPS, end_card)
     encode(OUT / "alfaytri_ac_promo_animatic.mp4", 30 * FPS, animatic_frame)
     print("Wrote", *sorted(p.relative_to(ROOT) for p in OUT.rglob("*.*")), sep="\n  ")
 
